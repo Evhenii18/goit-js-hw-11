@@ -1,51 +1,47 @@
-import iziToast from "izitoast";
-import "izitoast/dist/css/iziToast.min.css";
+// render-functions.js
 
-// Находим элементы формы
-const form = document.querySelector('.form');
-const delayInput = document.querySelector('input[name="delay"]');
-const stateInputs = document.querySelectorAll('input[name="state"]');
+import SimpleLightbox from 'simplelightbox';
+import 'simplelightbox/dist/simple-lightbox.min.css';
 
-// Обработчик события для отправки формы
-form.addEventListener('submit', (event) => {
-	event.preventDefault(); // Отключаем перезагрузку страницы
+let lightbox = null;
 
-	// Получаем значение задержки из input
-	const delay = parseInt(delayInput.value, 10);
+export function renderImages(images, galleryElement) {
+	const markup = images
+		.map(
+			({
+				webformatURL,
+				largeImageURL,
+				tags,
+				likes,
+				views,
+				comments,
+				downloads,
+			}) => `
+    <li class="gallery-item">
+					<a href="${largeImageURL}" >
+						<img class="gallery-img" src="${webformatURL}" alt="${tags}" loading="lazy" />
+						<div class="info">
+							<p>Likes: ${likes}</p>
+							<p>Views: ${views}</p>
+							<p><b>Comments: ${comments}</p>
+							<p>Downloads: ${downloads}</p>
+						</div>
+					</a>
+				</li>
+  `
+		)
+		.join('');
 
-	// Получаем выбранное состояние промиса (fulfilled/rejected)
-	let selectedState;
-	stateInputs.forEach(input => {
-		if (input.checked) {
-			selectedState = input.value;
-		}
-	});
+	galleryElement.innerHTML = markup;
 
-	// Создаем промис с заданной задержкой
-	createPromise(delay, selectedState)
-		.then((delay) => {
-			iziToast.success({
-				title: 'Success',
-				message: `✅ Fulfilled promise in ${delay}ms`,
-			});
-		})
-		.catch((delay) => {
-			iziToast.error({
-				title: 'Error',
-				message: `❌ Rejected promise in ${delay}ms`,
-			});
-		});
-});
+	// Ініціалізація SimpleLightbox після рендерингу зображень
+	if (!lightbox) {
+		lightbox = new SimpleLightbox('.gallery a');
+	} else {
+		lightbox.refresh();
+	}
+}
 
-// Функция для создания промиса
-function createPromise(delay, state) {
-	return new Promise((resolve, reject) => {
-		setTimeout(() => {
-			if (state === 'fulfilled') {
-				resolve(delay);
-			} else {
-				reject(delay);
-			}
-		}, delay);
-	});
+export function clearGallery(galleryElement) {
+	galleryElement.innerHTML = '';
 }
