@@ -1,5 +1,4 @@
-import { fetchImages } from './js/pixabay-api'; // Імпорт функції для запитів
-import { renderImages, clearGallery } from './js/render-function'; // Імпорт функції для рендерингу та очищення галереї
+
 import iziToast from 'izitoast';
 import 'izitoast/dist/css/iziToast.min.css';
 
@@ -48,15 +47,14 @@ function onSearch(event) {
 		})
 		.catch(error => {
 			iziToast.error({
-				title: 'Error',
 				message: 'Something went wrong. Please try again later.',
 			});
 			console.error('Error fetching images:', error);
 		})
 		.finally(() => {
 			hideLoader();
+			clearInput();  // Очищення поля вводу після завершення запиту
 		});
-		
 }
 
 function showLoader() {
@@ -67,5 +65,8 @@ function hideLoader() {
 	loader.style.display = 'none';
 }
 
+function clearInput() {
+	form.elements.searchQuery.value = '';
+}
 
 
