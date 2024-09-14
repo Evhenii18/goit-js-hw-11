@@ -39,7 +39,7 @@ function onSearch(event) {
 			if (data.hits.length === 0) {
 				iziToast.error({
 					title: 'Error',
-					message: 'Sorry, no images matching your search query.',
+					message: 'Sorry, there are no images matching your search query. Please, try again!',
 				});
 				return;
 			}
@@ -56,6 +56,7 @@ function onSearch(event) {
 		.finally(() => {
 			hideLoader();
 		});
+		
 }
 
 function showLoader() {
@@ -65,3 +66,6 @@ function showLoader() {
 function hideLoader() {
 	loader.style.display = 'none';
 }
+
+
+

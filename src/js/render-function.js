@@ -18,16 +18,16 @@ export function renderImages(images, galleryElement) {
 				downloads,
 			}) => `
     <li class="gallery-item">
-					<a href="${largeImageURL}" >
-						<img class="gallery-img" src="${webformatURL}" alt="${tags}" loading="lazy" />
-						<div class="info">
-							<p>Likes: ${likes}</p>
-							<p>Views: ${views}</p>
-							<p><b>Comments: ${comments}</p>
-							<p>Downloads: ${downloads}</p>
-						</div>
-					</a>
-				</li>
+			<a href="${largeImageURL}" >
+				<img class="gallery-img" src="${webformatURL}" alt="${tags}" loading="lazy" />
+				<div class="info">
+					<p><b>Likes</b> ${likes}</p>
+					<p><b>Views</b> ${views}</p>
+					<p><b>Comments</b> ${comments}</p>
+					<p><b>Downloads</b> ${downloads}</p>
+				</div>
+			</a>
+		</li>
   `
 		)
 		.join('');
