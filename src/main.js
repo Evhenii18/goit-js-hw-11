@@ -1,5 +1,5 @@
-
-import iziToast from 'izitoast';
+import { fetchImages } from './js/pixabay-api'; 
+import { renderImages, clearGallery } from './js/render-function';
 import 'izitoast/dist/css/iziToast.min.css';
 
 const form = document.querySelector('#search-form');
