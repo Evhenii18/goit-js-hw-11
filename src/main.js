@@ -19,7 +19,7 @@ function onSearch(event) {
 
 	if (searchQuery === '') {
 		iziToast.warning({
-			title: 'Warning',
+			timeout: 10000,
 			message: 'Please enter a search query!',
 		});
 		return;
@@ -39,6 +39,7 @@ function onSearch(event) {
 		.then(data => {
 			if (data.hits.length === 0) {
 				iziToast.error({
+					timeout: 10000,
 					message: 'Sorry, there are no images matching your search query. Please, try again!',
 				});
 				return;
@@ -48,6 +49,7 @@ function onSearch(event) {
 		})
 		.catch(error => {
 			iziToast.error({
+				timeout: 10000,
 				message: 'Something went wrong. Please try again later.',
 			});
 			console.error('Error fetching images:', error);
